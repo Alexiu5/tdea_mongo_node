@@ -1,0 +1,9 @@
+POST https://localhost.com/usuario/ HTTP/1.1
+Content-Type: application/json
+{
+    "nombre" : "Alex",
+    "tipoDocuemento": "CC",
+    "nroDocumento" : 1532551,
+    "email": "alex@gmail.com",
+    "telefono": "12345123",
+}

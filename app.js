@@ -16,18 +16,28 @@ app.use('/js', express.static(dirNode_modules + '/popper.js'))
 
 
 //body parser
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({ 
+    extended: true 
+}));
 
 //Routes
 app.use(require('./src/routes/index'))
 
-mongoose.connect(`${config.DATABASEURL}/${config.DB_NAME}`,{useNewUrlParser: true}, (err, res)=>{
+let connectionString;
+if(config.ENVIROMENT === 'local'){
+   connectionString = `${config.DATABASEURL}/${config.DB_NAME}`
+}else{
+   connectionString = `${config.ONLINEDBCONNECT}`
+}
+
+mongoose.connect(connectionString,{useNewUrlParser: true}, (err, res)=>{
     if(err) return console.log('something went wrong in mongoose database connection', err)
     console.log('connected')
 }) 
 
+
 app.listen(config.PORT, ()=>{
-    console.log(`server running at ${config.PORT}`)
+    console.log(`server running at ${config.ENVIROMENT}`)
 })
 
 
