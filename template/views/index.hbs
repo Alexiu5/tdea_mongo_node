@@ -1,0 +1,13 @@
+{{> header}}
+   <div class="container">
+        <h1 class="title"> In case you don't know i'm {{name}} - {{profession}} since {{since_date}}</h1>
+        <p>Here in this page you'll find a lot of funny content</p>
+        <button onclick="greet('{{name}}')">Greet</button>
+   </div>
+
+   <script type="text/javascript">
+      function greet(name){
+         alert(`good morning awesome person: ${name}`)
+      }
+   </script>
+{{> footer}} 
