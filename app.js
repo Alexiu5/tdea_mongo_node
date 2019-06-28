@@ -4,6 +4,8 @@ const app = express()
 const path = require('path')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const session = require('express-session')
+var MemoryStore = require('memorystore')(session)
 
 //Path
 const dirPublic = path.join(__dirname,'./public')
@@ -22,6 +24,18 @@ app.use(bodyParser.urlencoded({
 
 //Routes
 app.use(require('./src/routes/index'))
+
+// Session variables in node
+app.use(session({
+	cookie: { maxAge: 86400000 },
+ 	store: new MemoryStore({
+      	checkPeriod: 86400000 // prune expired entries every 24h
+    	}),
+  	secret: config.SESSION_KEY_STORAGE,
+  	resave: true,
+  	saveUninitialized: true
+}))
+
 
 let connectionString;
 if(config.ENVIROMENT === 'local'){

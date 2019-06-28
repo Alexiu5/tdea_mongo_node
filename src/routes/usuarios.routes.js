@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 users.get('/', (req, res)=>{
     controller.searchUser()
         .then(response => {
-            res.status(200).send(response)
+            res.status(200).send({'response':'mensaje de error'})
         })
         .catch(err => {
             console.error(err)
@@ -50,17 +50,17 @@ users.delete('/:id', (req, res)=>{
         })
 })
 
-users.get('/login', (req, res) =>{
+users.post('/login', (req, res) =>{
     const {email, password} = req.body
+
     controller.logIn(email, password)
         .then( response =>{
             console.log(response)
-            res.send(response)
+            res.redirect('/home')
         })
         .catch(err =>{
             console.log(err)
-            res.send(err)
-            res.status(404).end()
+            res.redirect('/')
         })
 
 })

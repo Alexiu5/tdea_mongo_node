@@ -34,8 +34,8 @@ const cursosSchema = new Schema({
     },
     modalidad: {
         type: String,
-        enum: ['virutal', 'presencial'],
-        default: ['presencial']
+        enum: ['virtual', 'presencial'],
+        default: 'presencial'
     }, 
     intensidadHoraria: {
         type: Number,
@@ -48,5 +48,5 @@ const cursosSchema = new Schema({
 })
 
 cursosSchema.plugin(uniqueValidator)
-const cursosModel = mongoose.model('Cursos', cursosSchema)
+const cursosModel = mongoose.model('cursos', cursosSchema)
 module.exports = cursosModel

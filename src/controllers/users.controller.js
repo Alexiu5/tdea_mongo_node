@@ -1,22 +1,21 @@
-const Usuario = require('../models/usuario')
+const Usuario = require('../models/usuario.model')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config')
 
-const searchUser = async ()=>{
-    return new Promise((reject, resolve)=>{
+const searchUser = ()=>{
+    return new Promise((resolve, reject)=>{
         Usuario.find({}, (err, res)=>{
             if(err) {
                 reject(err)
             }
-            
             resolve(res)
         })
     })
 }
 
 const createUser = (usuario)=>{
-    return new Promise((reject, resolve)=>{
+    return new Promise((resolve, reject)=>{
         const user = new Usuario(usuario)
         user.save((err, result)=>{
             if(err) reject(err)
@@ -26,7 +25,7 @@ const createUser = (usuario)=>{
 }
 
 const findUsuarioById = (idUsuario) => {
-    return new Promise((reject, resolve)=> {
+    return new Promise((resolve, reject)=> {
         Usuario.findOne({nroDocumento: idUsuario}, (err, usuario)=>{
             if(err) reject(err)
             resolve(usuario)
@@ -35,7 +34,7 @@ const findUsuarioById = (idUsuario) => {
 }
 
 const actualizar = (id, usuario)=>{
-    return new Promise((reject, resolve)=>{
+    return new Promise((resolve, reject)=>{
         Usuario.findOneAndUpdate({nroDocumento:id}, usuario, {new:true, runValidators:true, context:'query'},(err, result)=>{
             if(err) reject(err)
 
@@ -45,7 +44,7 @@ const actualizar = (id, usuario)=>{
 }
 
 const deleteUsuario = id =>{
-    return new Promise((reject, resolve) => {
+    return new Promise((resolve, reject) => {
         Usuario.findOneAndRemove({nroDocumento:id}, (err, result)=>{
             if (err) reject(err)
             resolve(result)
@@ -54,27 +53,29 @@ const deleteUsuario = id =>{
 }
 
 const logIn = (mail, password)=>{
-    return new Promise((reject, resolve)=>{
+    return new Promise((resolve, reject)=>{
         Usuario.findOne({email: mail}, (err, response)=>{
-            if(err) reject(err)
-            
+            if(err) {
+                reject(err)
+                return;
+            }
+
+            if(response === null) {
+                reject({error:'no such element'})
+                return;
+            }
+
             const comparePassword = bcrypt.compareSync(password, response.password)
 
             if(!comparePassword){
                 reject({error: 'Contraseña no coinciden', status:404})
             }
 
-            let token = jwt.sign({
-            	usuario: [response.email, response.nroDocumento]
-        	}, config.SECRET_KEY, { expiresIn: '1h' })
-
-            if(typeof localStorage === 'undefined' || localStorage === null){
-                var LocalStorage = require('node-localstorage').LocalStorage;
-                localStorage = new LocalStorage('./scratch');
-            }
-
-            localStorage.setItem(config.SESSION_KEY_STORAGE, token)
-            console.log(localStorage.getItem('tokenjwt'))
+            //Create session variables for validation and extra info
+            req.session.usuario = response._id
+            req.session.usuarioId = response.nroDocumento	
+            req.session.nombre = response.nombre
+            req.session.rol = response.rol
 
             resolve(response)
         })
