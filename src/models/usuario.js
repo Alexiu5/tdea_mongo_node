@@ -33,6 +33,10 @@ const usuarioSchema = new Schema({
         required: true,
         enum : ['coordinador', 'aspirante', 'interesado'],
         default: 'aspirante'
+    },
+    password:{
+        type: String,
+        required: true
     }
 })
 

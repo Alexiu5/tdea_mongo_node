@@ -30,14 +30,14 @@ if(config.ENVIROMENT === 'local'){
    connectionString = `${config.ONLINEDBCONNECT}`
 }
 
-mongoose.connect(connectionString,{useNewUrlParser: true}, (err, res)=>{
+mongoose.connect(connectionString,{useNewUrlParser: true, useCreateIndex: true,}, (err, res)=>{
     if(err) return console.log('something went wrong in mongoose database connection', err)
     console.log('connected')
 }) 
 
 
 app.listen(config.PORT, ()=>{
-    console.log(`server running at ${config.ENVIROMENT}`)
+    console.log(`server at ${config.ENVIROMENT}`)
 })
 
 
