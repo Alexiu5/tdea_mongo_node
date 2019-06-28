@@ -36,6 +36,10 @@ const cursosSchema = new Schema({
     intensidadHoraria: {
         type: Number,
         min: 0
+    },
+    cantCupos:{
+        type: Number,
+        min: 0
     }
 })
 

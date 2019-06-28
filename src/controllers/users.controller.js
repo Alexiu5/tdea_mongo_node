@@ -8,10 +8,9 @@ const searchUser = async ()=>{
         Usuario.find({}, (err, res)=>{
             if(err) {
                 reject(err)
-            }else{
-                console.log('error searching users')
-                resolve(res)
             }
+            
+            resolve(res)
         })
     })
 }
