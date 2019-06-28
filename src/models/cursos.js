@@ -17,21 +17,25 @@ const cursosSchema = new Schema({
     },
     descripcion: {
         type: String,
-        trim: true
+        trim: true,
+        required: true
     },
     valor: {
         type: Number,
-        min: 0
+        min: 0,
+        required: true
     },
     estado: {
         type: String,
         trim: true,
-        required: true
+        required: true,
+        enum: ['disponible', 'no disponible'],
+        default: 'disponible'
     },
     modalidad: {
         type: String,
-        enum: ['disponible', 'no disponible'],
-        default: 'disponible'
+        enum: ['virutal', 'presencial'],
+        default: ['presencial']
     }, 
     intensidadHoraria: {
         type: Number,
