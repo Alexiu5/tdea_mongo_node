@@ -6,9 +6,8 @@ const dirViews = path.join(__dirname + '../../../template/views')
 const dirPartials = path.join(__dirname+'../../../template/partials')
 const usuarioRouter = require('./usuarios.routes')
 const cursosRouter = require('./cursos.router')
-// const bcrypt = require('bcrypt')
+const cursoCtrl = require('../controllers/cursos.controller')
 //helpers?
-
 require('../helpers/')
 
 //hbs
@@ -29,13 +28,15 @@ app.get('/registro', (req, res)=>{
 })
 
 app.get('/home', (req, response)=>{
-    const {nombre, rol} = req.session
-
-    if(nombre && rol) {
-        response.render('home',{
-            nombre,
-            rol
-        })
+    const {usuario} = req.session
+    if(usuario) {
+        cursoCtrl.searchCourses(usuario.rol)
+            .then(cursos => {
+                response.render('home',{
+                    usuario,
+                    cursos
+                })
+            })
     }else{
         response.redirect('/')
     }

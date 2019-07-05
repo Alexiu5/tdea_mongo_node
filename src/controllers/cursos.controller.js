@@ -49,10 +49,33 @@ const deleteCurso = (idCurso)=>{
 }
 
 
+const findActiveCourses = ()=>{
+    return new Promise((resolve, reject) => {
+        Cursos.find({estado: 'disponible'}, (err, response) => 
+        {
+            if(err) reject(err)
+            resolve(response)
+        })
+    })
+}
+
+const searchCourses = (rol)=>{
+	const courses = []
+	const rolesActivedCourses = ['aspirante', 'interesado']
+	const rolesAllCourses= ['aspirante', 'interesado']
+	if(rolesActivedCourses.includes(rol)){
+		return findActiveCourses()
+	}else if(rolesAllCourses.includes(rol)){
+		return searchAllCursos()
+	}
+}
+
 module.exports = {
     searchAllCursos,
     searchCursosById,
     createCurso,
     updateCurso,
-    deleteCurso
+    deleteCurso,
+    findActiveCourses,
+    searchCourses
 }

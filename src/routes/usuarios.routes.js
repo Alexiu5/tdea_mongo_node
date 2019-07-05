@@ -55,12 +55,13 @@ users.post('/login', (req, res) =>{
 
     controller.logIn(email, password)
         .then( response =>{
-
-            req.session.usuario = response._id
-            req.session.usuarioId = response.nroDocumento	
-            req.session.nombre = response.nombre
-            req.session.rol = response.rol
-            
+            const {id, nroDocumento, nombre	, rol} = response
+            req.session.usuario = {
+                id,
+                nroDocumento,
+                nombre,
+                rol
+            }
             res.redirect('/home')
         })
         .catch(err =>{
