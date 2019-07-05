@@ -15,7 +15,7 @@ users.get('/', (req, res)=>{
 
 users.post('/', (req, res)=>{
     console.log(req.body)
-
+    const saltRounds = 10
     const {nombre, tipoDocumento, nroDocumento, email, telefono, rol, password} = req.body
     let user = {
         nombre, 
@@ -24,7 +24,7 @@ users.post('/', (req, res)=>{
         email, 
         telefono, 
         rol,
-        password: bcrypt.hashSync(password, 10) 
+        password: bcrypt.hashSync(password, saltRounds) 
     }
     controller.createUser(user)
      .then((result)=> {

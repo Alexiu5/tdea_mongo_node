@@ -1,0 +1,68 @@
+{{> header}}
+
+<link rel="stylesheet" href="/css/register.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center align-items-center contenedor-pagina">
+            <div class="col-md-6 col-sm-12 container-form-register">
+                <h1 id="title">Registro Usuario</h1>
+                <form method="POST" action="/usuario">
+                    <div class="form-group">
+                        <label for="nombre">Nombre Completo</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control" required>
+                    </div>
+
+                    
+                    <div class="row"> {{!-- Tipo de documento row container --}}
+                        <div class="col-sm-12 d-flex flex-row">
+                            <div class="form-group" style="width:100%;">
+                                <label for="tipoDocumento">Tipo Documento</label>
+                                <select name="tipoDocumento" id="tipoDocumento" class="form-control">
+                                    <option>CC</option>
+                                    <option>TI</option>
+                                    <option>PASAPORTE</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="width:100%; margin-left:10px;">
+                                <label for="nroDocumento">Número Documento</label>
+                                <input type="text" name="nroDocumento" id="nroDocumento" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 d-flex flex-row">
+                            <div class="form-group" style="width:100%;">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" class="form-control" required>
+                            </div>
+
+                            <div class="form-group" style="width:100%; margin-left:10px;">
+                                <label for="telefono">Telefono</label>
+                                <input type="text" name="telefono" id="telefono" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group" style="width: 100%;">
+                                <label for="password">Contraseña</label>
+                                <input type="password" name="password" id="password" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 ">
+                            <input type="submit" value="Enviar" class="btn btn-primary" style="float:right">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{> footer}}

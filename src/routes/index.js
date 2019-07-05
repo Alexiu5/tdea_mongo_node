@@ -24,6 +24,11 @@ app.get('/', (req, res)=>{
     })
 })
 
+
+app.get('/registro', (req, res)=>{
+    res.render('register', {})
+})
+
 app.get('/home', (req, response)=>{
     const {nombre, rol} = req.session
 

@@ -5,7 +5,7 @@
 <body>
    <div class="container-fluid">
       <div class="row d-flex justify-content-end align-items-sm-start" style="min-height: 100vh;">
-         <div class="col-md-6 col-sm-12 d-flex" id="container-login">
+         <div class="col-md-6 col-sm-12 d-flex  align-items-center" id="container-login">
             <div class="col-md-12 d-flex flex-column justify-content-center align-items-sm-center ">
                <div class="col-md-8 col-sm-12">
                   <div class="title">
@@ -18,7 +18,9 @@
 
                         <label>Contraseña</label>
                         <input type="password" class="form-control" name="password" placeholder="Contraseña" required><br>
-                        <button class="btn btn-dark" id="btn-send">Iniciar</button>
+
+                           <button class="btn btn-dark" id="btn-send">Iniciar</button>
+                           <a href="/registro" id="register-link">Registrarse</a>
                      </div>
                   </form>
                </div>
@@ -27,11 +29,6 @@
       </div>
    </div>
    </div>
-
    <script type="text/javascript">
-         function login(event){
-            console.log(event)
-         }
-
    </script>
    {{> footer}}

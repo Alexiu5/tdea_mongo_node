@@ -1,0 +1,19 @@
+.container-fluid{
+    background: #f3f3f3;
+}
+.contenedor-pagina{
+    min-height: 100vh;
+}
+
+#tipoDocumento{
+    text-transform: capitalize;
+}
+
+#title{
+    margin: 5% 0px;
+}
+
+.container-form-register{
+    font-family: 'Raleway', sans-serif !important;
+    padding: 2% 10%; 
+}
