@@ -69,13 +69,6 @@ const logIn = (mail, password)=>{
             if(!comparePassword){
                 reject({error: 'Contraseña no coinciden', status:404})
             }
-
-            //Create session variables for validation and extra info
-            req.session.usuario = response._id
-            req.session.usuarioId = response.nroDocumento	
-            req.session.nombre = response.nombre
-            req.session.rol = response.rol
-
             resolve(response)
         })
     })

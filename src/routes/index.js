@@ -24,7 +24,6 @@ app.get('/', (req, res)=>{
     })
 })
 
-
 app.get('/registro', (req, res)=>{
     res.render('register', {})
 })
@@ -32,7 +31,7 @@ app.get('/registro', (req, res)=>{
 app.get('/home', (req, response)=>{
     const {nombre, rol} = req.session
 
-    if(nombre) {
+    if(nombre && rol) {
         response.render('home',{
             nombre,
             rol

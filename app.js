@@ -22,10 +22,7 @@ app.use(bodyParser.urlencoded({
     extended: true 
 }));
 
-//Routes
-app.use(require('./src/routes/index'))
-
-// Session variables in node
+// Session variables
 app.use(session({
 	cookie: { maxAge: 86400000 },
  	store: new MemoryStore({
@@ -36,8 +33,11 @@ app.use(session({
   	saveUninitialized: true
 }))
 
+//Routes
+app.use(require('./src/routes/index'))
 
 let connectionString;
+
 if(config.ENVIROMENT === 'local'){
    connectionString = `${config.DATABASEURL}/${config.DB_NAME}`
 }else{

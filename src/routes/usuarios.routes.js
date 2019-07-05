@@ -55,7 +55,12 @@ users.post('/login', (req, res) =>{
 
     controller.logIn(email, password)
         .then( response =>{
-            console.log(response)
+
+            req.session.usuario = response._id
+            req.session.usuarioId = response.nroDocumento	
+            req.session.nombre = response.nombre
+            req.session.rol = response.rol
+            
             res.redirect('/home')
         })
         .catch(err =>{
