@@ -42,13 +42,11 @@ app.get('/home', (req, response)=>{
     }
 })
 
-
 app.get('*', (req, res)=>{
     res.render('error', {
         title: 404
     })
 })
-
 
 module.exports =  app;
 

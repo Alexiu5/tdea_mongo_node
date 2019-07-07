@@ -11,9 +11,10 @@ const searchAllCursos = () =>{
 }
 
 
-const searchCursosById = id =>{
+const searchCursosById = (id) =>{
     return new Promise((resolve, reject)=>{
-        Cursos.findOne({idCurso: id}, (err, response)=>{
+        Cursos.findOne({idCurso: id}, (err, response)=>
+        {
             if(err) reject(err)
             resolve(response)
         })
@@ -62,7 +63,7 @@ const findActiveCourses = ()=>{
 const searchCourses = (rol)=>{
 	const courses = []
 	const rolesActivedCourses = ['aspirante', 'interesado']
-	const rolesAllCourses= ['aspirante', 'interesado']
+	const rolesAllCourses= ['coordinador']
 	if(rolesActivedCourses.includes(rol)){
 		return findActiveCourses()
 	}else if(rolesAllCourses.includes(rol)){

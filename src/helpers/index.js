@@ -10,7 +10,7 @@ hbs.registerHelper('ifCond', function(v1, v2, options) {
 });
 
 
-hbs.registerHelper('tablaCursos', (cursos)=>{
+hbs.registerHelper('listarCursosCoordinador', (cursos)=>{
 	let result =  `<table class="table table-striped" >
 	<thead>
 		<tr style="text-transform: capitalize">
@@ -20,6 +20,7 @@ hbs.registerHelper('tablaCursos', (cursos)=>{
 			<th>Intensidad horaria</th>
 			<th>cant. Cupos</th>
 			<th>Valor</th>
+			<th></th>
 			<th></th>
 		</tr>
 	</thead>
@@ -34,17 +35,13 @@ hbs.registerHelper('tablaCursos', (cursos)=>{
 			<td>${elm.intensidadHoraria}</td>
 			<td>${elm.cantCupos}</td>
 			<td>${elm.valor}</td>
-			<td><a href="/cursos/inscribirse/${elm.idCurso}" class="btn btn-warning">Inscribirse</a></td>
+			<td><a href="/cursos/editar/${elm.idCurso}" class="btn btn-warning detail-btn" >Editar</a></td>
+			<td><a href="/cursos/eliminar/${elm.idCurso}" class="btn btn-warning detail-btn" >Eliminar</a></td>
 		</tr>`
 	})
 
 	result = result + `</tbody> </table>`
 	return result
-})
-
-
-hbs.registerHelper('listarCursosCoordinador', cursos => {
-	return '<p> Hello coordinator</p>'
 })
 
 

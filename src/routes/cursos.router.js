@@ -10,6 +10,17 @@ cursos.get('/', (req, resp)=>{
 })
 
 
+cursos.get('/registrarcurso', (req, res)=>{
+    const {usuario} = req.session
+    if(usuario){
+        res.render('registrarCurso', {
+            usuario
+        })
+    }else{
+        res.redirect('/')
+    }
+})
+
 cursos.post('/', (req, resp)=>{
     const {nombre, idCurso, descripcion, valor, estado, modalidad, intensidadHoraria, cantCupos } = req.body
 
@@ -54,7 +65,6 @@ cursos.put('/', (req, resp)=>{
         .catch(err => resp.status(404).send(err).end())
 })
 
-
 cursos.delete('/:id', (req, resp)=>{
     const {idCurso} = req.params
     CursosController.deleteCurso(idCurso)
@@ -69,9 +79,9 @@ cursos.get('/:idCurso', (req, response)=>{
 
     CursosController.searchCursosById(idCurso)
         .then( data => {
-            resp.status(200).send(data)
+            response.status(200).send(data)
         })
-        .catch(err => resp.status(404).send(err).end())
+        .catch(err => response.status(404).send(err).end())
         
 })
 
@@ -82,15 +92,20 @@ cursos.get('/registrar/:id', (req, response)=>{
 
     if(usuario){
         CursosController.searchCursosById(idCurso)
-            .then( response => {
-                response.render('registrarCurso',{
-                    curso: response,
-                    usuario
-                })
+            .then(curso => {
+                if(curso){
+                    console.log(curso)
+                    response.render('registrarseEnCurso',{
+                        curso,
+                        usuario
+                    })
+                }else{
+                   response.redirect('/home')
+                }
             })
+            .catch(err => console.log(err))
     }
-    response.redirect('/')
-})
+}) 
 
 
 module.exports = cursos
