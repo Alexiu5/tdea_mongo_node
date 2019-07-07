@@ -21,6 +21,15 @@ const searchCursosById = (id) =>{
     })
 }
 
+const findCourseById = id => {
+    return new Promise((resolve, reject) =>{
+        Cursos.findById(id, (err, response)=>{
+            if (err) reject(err)
+            resolve(response)
+        })
+    })
+}
+
 const createCurso = curso =>{
     return new Promise((resolve, reject)=>{
         const cursoToCreate = new Cursos(curso)
@@ -74,6 +83,7 @@ const searchCourses = (rol)=>{
 module.exports = {
     searchAllCursos,
     searchCursosById,
+    findCourseById,
     createCurso,
     updateCurso,
     deleteCurso,

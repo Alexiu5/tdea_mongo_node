@@ -1,6 +1,38 @@
 const cursos = require('express').Router()
 const CursosController = require('../controllers/cursos.controller')
 
+cursos.get('/register', (req, res)=>{
+    const {usuario} = req.session
+    if(usuario){
+        res.render('registrar-curso', {
+            usuario
+        })
+    }else{
+        res.redirect('/')
+    }
+})
+
+cursos.get('/editar/:idCurso', (req, res)=>{
+    const {usuario} = req.session
+    const {idCurso} = req.params
+
+    if(usuario){
+        CursosController.findCourseById(idCurso)
+            .then(curso => {
+                res.render('editar-curso',{
+                    usuario,
+                    curso
+                })
+            })
+            .catch(err => {
+                console.log(err)
+                res.status(404).send(err).end()
+            })
+    }else{
+        res.redirect('/')
+    }
+})
+
 cursos.get('/', (req, resp)=>{
  CursosController.searchAllCursos()
     .then(data =>{
@@ -10,16 +42,6 @@ cursos.get('/', (req, resp)=>{
 })
 
 
-cursos.get('/registrarcurso', (req, res)=>{
-    const {usuario} = req.session
-    if(usuario){
-        res.render('registrarCurso', {
-            usuario
-        })
-    }else{
-        res.redirect('/')
-    }
-})
 
 cursos.post('/', (req, resp)=>{
     const {nombre, idCurso, descripcion, valor, estado, modalidad, intensidadHoraria, cantCupos } = req.body
@@ -60,7 +82,7 @@ cursos.put('/', (req, resp)=>{
 
     CursosController.updateCurso(newCurso)
         .then(data => {
-            resp.status(200).send(data)
+           resp.redirect('/home')
         })
         .catch(err => resp.status(404).send(err).end())
 })

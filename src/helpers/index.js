@@ -35,8 +35,8 @@ hbs.registerHelper('listarCursosCoordinador', (cursos)=>{
 			<td>${elm.intensidadHoraria}</td>
 			<td>${elm.cantCupos}</td>
 			<td>${elm.valor}</td>
-			<td><a href="/cursos/editar/${elm.idCurso}" class="btn btn-warning detail-btn" >Editar</a></td>
-			<td><a href="/cursos/eliminar/${elm.idCurso}" class="btn btn-warning detail-btn" >Eliminar</a></td>
+			<td><a href="/curso/editar/${elm._id}" class="btn btn-warning detail-btn" >Editar</a></td>
+			<td><a href="/curso/eliminar/${elm._id}" class="btn btn-warning detail-btn" >Eliminar</a></td>
 		</tr>`
 	})
 
