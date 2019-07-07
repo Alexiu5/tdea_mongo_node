@@ -1,6 +1,6 @@
 {{> header}}
+<link rel="stylesheet" href="./css/home.css">
 </head>
-
 <body>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
@@ -8,13 +8,41 @@
             <p class="lead">Veo que eres rol {{usuario.rol}} interesante !:D</p>
         </div>
     </div>
-
-    <div class="container">
-        <div class="row">
+    <div class="container" >
+        <div class="row" style="margin-bottom:2rem">
             <div class="col-md-12">
-                {{{listarCursos cursos}}}
-
+                <h2>
+                    Cursos
+                </h2>
             </div>
         </div>
     </div>
+    <div class="container">
+        {{#ifCond usuario.rol 'aspirante'}}
+            <div class="row d-flex flex-row">
+                    {{{listarCursosAspirante cursos}}}
+            </div>
+        {{/ifCond}}
+
+
+        {{#ifCond usuario.rol 'coordinador'}}
+            <div class="row">
+                <div class="col-md-12">
+                    {{{listarCursosCoordinador cursos}}}
+
+                </div>
+            </div>
+        {{/ifCond}}
+
+        {{#ifCond usuario.rol 'interesado'}}
+            <div class="row">
+                <div class="col-md-12">
+                    {{{listarCursosInteresado cursos}}}
+
+                </div>
+            </div>
+        {{/ifCond}}
+    </div>
+
+
 {{> footer}}

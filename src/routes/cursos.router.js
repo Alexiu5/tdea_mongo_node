@@ -76,4 +76,21 @@ cursos.get('/:idCurso', (req, response)=>{
 })
 
 
+cursos.get('/registrar/:id', (req, response)=>{
+    const {idCurso} = req.params
+    const {usuario}  = req.session
+
+    if(usuario){
+        CursosController.searchCursosById(idCurso)
+            .then( response => {
+                response.render('registrarCurso',{
+                    curso: response,
+                    usuario
+                })
+            })
+    }
+    response.redirect('/')
+})
+
+
 module.exports = cursos

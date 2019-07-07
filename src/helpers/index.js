@@ -1,35 +1,16 @@
 const hbs = require('hbs');
 const cursosCtrl = require('../controllers/cursos.controller')
 
-hbs.registerHelper('listar', (listado) => {
-let texto = `	<form action="/eliminar" method="post">
-		<table class='table table-striped table-hover'> 
-				<thead class='thead-dark'>
-				<th>Nombre</th>
-				<th>Matematicas</th>
-				<th>Ingles</th>
-				<th>Programacion</th>
-				<th></th>
-				</thead>
-				<tbody>`;
-	listado.forEach(estudiante =>{
-		texto = texto + 
-				`<tr>
-				<td> ${estudiante.nombre} </td>
-				<td> ${estudiante.matematicas} </td>
-				<td> ${estudiante.ingles}</td>
-				<td> ${estudiante.programacion} </td>
-				<td><button class="btn btn-danger" name="nombre" value="${estudiante.nombre}">Eliminar</button></td>
-				
-				</tr> `;
-	})
-	texto = texto + '</tbody> </table></form>';	
-	return texto;
 
+hbs.registerHelper('ifCond', function(v1, v2, options) {
+	if(v1 === v2) {
+	  return options.fn(this);
+	}
+	return options.inverse(this);
 });
 
 
-hbs.registerHelper('listarCursos', (cursos)=>{
+hbs.registerHelper('tablaCursos', (cursos)=>{
 	let result =  `<table class="table table-striped" >
 	<thead>
 		<tr style="text-transform: capitalize">
@@ -53,10 +34,59 @@ hbs.registerHelper('listarCursos', (cursos)=>{
 			<td>${elm.intensidadHoraria}</td>
 			<td>${elm.cantCupos}</td>
 			<td>${elm.valor}</td>
-			<td><a href="/cursos/${elm.idCurso}" class="btn btn-warning">editar</a></td>
+			<td><a href="/cursos/inscribirse/${elm.idCurso}" class="btn btn-warning">Inscribirse</a></td>
 		</tr>`
 	})
 
 	result = result + `</tbody> </table>`
 	return result
 })
+
+
+hbs.registerHelper('listarCursosCoordinador', cursos => {
+	return '<p> Hello coordinator</p>'
+})
+
+
+hbs.registerHelper('listarCurososInteresado', cursos => {
+	return '<p> Hello interesado</p>'
+})
+
+
+const blockOfCourses = cursos => {
+	let content = [];
+	const headContent = `
+			<div class="col-md-4 col-sm-6">
+		`
+	content.push(headContent)
+			
+	cursos.forEach(elm=>{
+		let card = `
+		<div class="card text-center">
+			<div class="card-header">	
+				${elm.nombre}
+			</div>
+			<div class="card-body">
+				<p class="card-text">${elm.descripcion}</p>
+				<p class="card-text">
+					Intensidad horaria: ${elm.intensidadHoraria} <br>
+					Valor del curso: ${elm.valor} <br>
+					Cant. cupos: ${elm.cantCupos}
+				</p>
+				<a href="/curso/registrar/${elm.idCurso}" class="btn btn-primary">Registrarse</a>
+			</div>
+		</div>
+		`
+		content.push(card)
+	})		
+	
+	const footContent =  `
+			</div>
+	`
+	content.push(footContent)
+
+	return content.join("")
+	
+}
+hbs.registerHelper('listarCursosAspirante', blockOfCourses)
+
