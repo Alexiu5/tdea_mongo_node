@@ -2,7 +2,7 @@ const Usuario = require('../models/usuario.model')
 const bcrypt = require('bcrypt');
 const config = require('../config')
 
-const searchUser = ()=>{
+const searchUsers = ()=>{
     return new Promise((resolve, reject)=>{
         Usuario.find({}, (err, res)=>{
             if(err) {
@@ -79,7 +79,7 @@ const logOut = ()=>{
 }
 
 module.exports = {
-    searchUser,
+    searchUsers,
     createUser,
     findUsuarioById,
     actualizar,

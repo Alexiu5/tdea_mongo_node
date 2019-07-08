@@ -87,3 +87,38 @@ const blockOfCourses = cursos => {
 }
 hbs.registerHelper('listarCursosAspirante', blockOfCourses)
 
+
+hbs.registerHelper('listarUsuarios', usuarios => {
+	let result =  `<table class="table table-striped" >
+	<thead>
+		<tr style="text-transform: capitalize">
+			<th>Nombre</th>
+			<th>tipoDocumento</th>
+			<th>Número de documento</th>
+			<th>Correo electronico</th>
+			<th>Telefono</th>
+			<th>Rol</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	`
+	usuarios.forEach(elm => {
+		result = result + `
+		<tr>
+			<td>${elm.nombre}</td>
+			<td>${elm.tipoDocumento}</td>
+			<td>${elm.nroDocumento}</td>
+			<td>${elm.email}</td>
+			<td>${elm.telefono}</td>
+			<td>${elm.rol}</td>
+			<td><a href="/curso/editar/${elm._id}" class="btn btn-warning detail-btn" >Editar</a></td>
+			<td><a href="/curso/eliminar/${elm._id}" class="btn btn-warning detail-btn" >Eliminar</a></td>
+		</tr>`
+	})
+
+	result = result + `</tbody> </table>`
+	return result
+})
+

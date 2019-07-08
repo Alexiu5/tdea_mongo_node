@@ -19,6 +19,9 @@ app.use('/usuario', usuarioRouter)
 app.use('/curso', cursosRouter)
 
 app.get('/', (req, res)=>{
+    const {usuario} = req.session
+    if(usuario) req.session.usuario = {}
+
     res.render('index', {
     })
 })

@@ -13,7 +13,7 @@
 
       {{#ifCond usuario.rol 'coordinador'}}
         <li class="nav-item">
-          <a class="nav-link" href="#">Usuarios</a>
+          <a class="nav-link" href="usuario/usuarios">Usuarios</a>
         </li>
       {{/ifCond}}
 
@@ -27,5 +27,11 @@
         <a class="nav-link disabled" href="#">{{user.nombre}} ({{user.rol}})</a>
       </li>
     </ul>
+
+    <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/" data-target="#myModal" data-toggle="modal">Cerrar sesión</a>
+            </li>
+        </ul>
   </div>
 </nav>

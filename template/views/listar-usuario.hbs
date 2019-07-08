@@ -1,0 +1,22 @@
+{{> header}}
+</head>
+<body>
+
+    {{> menu user = usuario}}
+    <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 id="title">Lista de usuarios</h1>
+                <p class="lead">Lista de todos los usuarios registrados en la plataforma</p>
+            </div>
+    </div>
+    
+    <div class="container">
+        <div class="row d-flex flex-row">
+            <div class="col-md-12" style="margin-bottom: 2rem ">
+                <a href="/usuario/register" class="btn btn-success">Agregar usuario</a>
+            </div>  
+            {{{listarUsuarios usuarios}}}
+        </div>
+    </div>
+
+    {{> footer}}
