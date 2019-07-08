@@ -23,11 +23,20 @@ const createUser = (usuario)=>{
     })
 }
 
-const findUsuarioById = (idUsuario) => {
+const findUsuarioByNroDocumento = (idUsuario) => {
     return new Promise((resolve, reject)=> {
         Usuario.findOne({nroDocumento: idUsuario}, (err, usuario)=>{
             if(err) reject(err)
             resolve(usuario)
+        })
+    })
+}
+
+const findUsuarioById = id => {
+    return new Promise((resolve, reject) => {
+        Usuario.findById(id, (err, response)=>{
+            if(err) reject(err)
+            resolve(response)
         })
     })
 }
@@ -44,7 +53,7 @@ const actualizar = (id, usuario)=>{
 
 const deleteUsuario = id =>{
     return new Promise((resolve, reject) => {
-        Usuario.findOneAndRemove({nroDocumento:id}, (err, result)=>{
+        Usuario.findOneAndRemove({ _id:id }, (err, result)=>{
             if (err) reject(err)
             resolve(result)
         })
@@ -82,6 +91,7 @@ module.exports = {
     searchUsers,
     createUser,
     findUsuarioById,
+    findUsuarioByNroDocumento,
     actualizar,
     deleteUsuario,
     logIn,

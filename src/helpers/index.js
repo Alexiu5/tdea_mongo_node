@@ -113,8 +113,8 @@ hbs.registerHelper('listarUsuarios', usuarios => {
 			<td>${elm.email}</td>
 			<td>${elm.telefono}</td>
 			<td>${elm.rol}</td>
-			<td><a href="/curso/editar/${elm._id}" class="btn btn-warning detail-btn" >Editar</a></td>
-			<td><a href="/curso/eliminar/${elm._id}" class="btn btn-warning detail-btn" >Eliminar</a></td>
+			<td><a href="/usuario/edit/${elm._id}" class="btn btn-warning detail-btn" >Editar</a></td>
+			<td><a href="/usuario/delete/${elm._id}" class="btn btn-warning detail-btn" >Eliminar</a></td>
 		</tr>`
 	})
 

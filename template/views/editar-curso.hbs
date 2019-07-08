@@ -45,6 +45,18 @@
                     <div class="row">
                         <div class="col-sm-12 d-flex flex-row">
                             <div class="form-group" style="width:100%;">
+                                <label for="modalidad">Estado</label>
+                                <select name="modalidad" id="modalidad" class="form-control" value="{{curso.estado}}">
+                                    <option>disponible</option>
+                                    <option>no disponible</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 d-flex flex-row">
+                            <div class="form-group" style="width:100%;">
                                 <label for="modalidad">Modalidad</label>
                                 <select name="modalidad" id="modalidad" class="form-control" value="{{curso.modalidad}}">
                                     <option>presencial</option>

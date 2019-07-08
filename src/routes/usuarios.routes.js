@@ -14,7 +14,6 @@ users.get('/', (req, res)=>{
 })
 
 users.post('/', (req, res)=>{
-    console.log(req.body)
     const saltRounds = 10
     const {nombre, tipoDocumento, nroDocumento, email, telefono, rol, password} = req.body
     let user = {
@@ -42,11 +41,11 @@ users.post('/', (req, res)=>{
 
 })
 
-users.delete('/:id', (req, res)=>{
+users.get('/delete/:id', (req, res)=>{
     const {id} = req.params
     controller.deleteUsuario(id)
         .then(response => {
-            res.send(response)
+            res.redirect('/home')
         })
         .catch(err =>{
             res.status(404).end()
@@ -103,6 +102,54 @@ users.get('/register', (req, res)=>{
         res.redirect('/')
     }
 
+})
+
+users.put('/', (req, res) => {
+    const saltRounds = 10
+    const {nombre, tipoDocumento, nroDocumento, email, telefono, rol, password} = req.body
+    let user = {
+        nombre, 
+        tipoDocumento,
+        nroDocumento,
+        email, 
+        telefono, 
+        rol,
+        password: bcrypt.hashSync(password, saltRounds) 
+    }
+
+    controller.actualizar(user)
+     .then((result)=> {
+         const {usuario} = req.session
+         if(usuario){
+            res.redirect('/usario/usuarios')
+         }{
+             res.redirect('/')
+         }
+     })
+     .catch(err =>{
+        res.redirect('/404')
+     })
+})
+
+users.get('/edit/:id', (req,res)=>{
+    const {usuario} = req.session
+    const {id} = req.params
+    
+    if(usuario){
+        controller.findUsuarioById(id)
+            .catch(response => {
+                console.log(response)
+                res.render('edit-usuario', {
+                    responseUsuario: response,
+                    usuario
+                })
+            })
+            .catch(err => {
+                res.redirect('usuario/usuarios')
+            })
+    }else{
+        res.redirect('/')
+    }
 })
 
 
