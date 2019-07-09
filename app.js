@@ -38,11 +38,11 @@ app.use(require('./src/routes/index'))
 
 let connectionString;
 
-if(config.ENVIROMENT === 'local'){
-   connectionString = `${config.DATABASEURL}/${config.DB_NAME}`
-}else{
+// if(config.ENVIROMENT === 'local'){
+//    connectionString = `${config.DATABASEURL}/${config.DB_NAME}`
+// }else{
    connectionString = `${config.ONLINEDBCONNECT}`
-}
+// }
 
 mongoose.connect(connectionString,{useNewUrlParser: true, useCreateIndex: true,}, (err, res)=>{
     if(err) return console.log('something went wrong in mongoose database connection', err)
